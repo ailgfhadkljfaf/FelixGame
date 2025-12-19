@@ -4,7 +4,7 @@ var oneone = Mario.oneone = function() {
   //TODO: put as much of this in the Level object definition as possible.
   level = new Mario.Level({
     playerPos: [56,192],
-    loader: Mario.oneone,
+    loader: Mario.onetwo,
     background: "#00aaff",
     scrolling: true,
     invincibility: [144, 192, 240],
