@@ -77,18 +77,24 @@ var oneone = Mario.oneone = function() {
     level.putFloor(loc[0],loc[1]);
   });
 
-  // Make the level harder: remove the ground tiles after 10 seconds so
-  // the player will fall. We remove the two rows used for the floor (13,14).
+  // After 10 seconds, remove only a few small random sections of the
+  // ground (rows 13 and 14) so the level loses only parts of the floor.
   // Use a global timer handle so it can be cleared/reset when the player dies.
   if (window.groundDropTimer) {
     clearTimeout(window.groundDropTimer);
     window.groundDropTimer = null;
   }
   window.groundDropTimer = setTimeout(function() {
-    // iterate across a generous range of columns and delete any floor tiles
-    for (var i = 0; i < 300; i++) {
-      if (level.statics[13]) delete level.statics[13][i];
-      if (level.statics[14]) delete level.statics[14][i];
+    if (!level) { window.groundDropTimer = null; return; }
+    var maxCol = level.exit || 300;
+    var holes = 8; // number of gaps to create
+    for (var h = 0; h < holes; h++) {
+      var start = Math.floor(Math.random() * Math.max(1, maxCol - 2));
+      var len = Math.floor(Math.random() * 10) + 1; // 1-10 tiles wide
+      for (var i = start; i < Math.min(maxCol, start + len); i++) {
+        if (level.statics[13]) delete level.statics[13][i];
+        if (level.statics[14]) delete level.statics[14][i];
+      }
     }
     window.groundDropTimer = null;
   }, 10000);
