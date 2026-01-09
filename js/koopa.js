@@ -21,6 +21,7 @@
     });
     this.vel[0] = -0.5;
     this.normalSpeed = -0.5;
+    this.shootTimer = 0; // seconds until next shot allowed
     this.idx = level.enemies.length;
   };
 
@@ -119,9 +120,11 @@
       this.vel[1] = Math.sin(this.flyTimer) * 2;
       this.acc[1] = 0; // No gravity for flying koopas
       
-      // Constantly shoot fireballs quickly
-      if (Math.abs(this.pos[0] - player.pos[0]) < 200) {
+      // Shoot with cooldown while flying
+      if (this.shootTimer > 0) this.shootTimer -= dt;
+      if (Math.abs(this.pos[0] - player.pos[0]) < 200 && this.shootTimer <= 0) {
         this.shoot();
+        this.shootTimer = 0.2; // seconds between shots (~5/sec)
       }
     } else {
       this.acc[1] = 0.2;

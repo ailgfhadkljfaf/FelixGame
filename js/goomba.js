@@ -13,6 +13,7 @@
     });
     this.vel[0] = -0.5;
     this.flying = false;
+    this.shootTimer = 0; // seconds until next shot allowed
     this.idx = level.enemies.length;
   };
 
@@ -44,10 +45,27 @@
     }
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
+    // Keep flying goombas within a bounded vertical range so they
+    // don't fly off-screen. Use a baseline captured when flying starts.
+    if (this.flying) {
+      if (!this.baseY) this.baseY = this.pos[1];
+      var minY = Math.max(0, this.baseY - 48); // don't go above this
+      var maxY = this.baseY + 16; // don't go much below baseline
+      if (this.pos[1] < minY) {
+        this.pos[1] = minY;
+        if (this.vel[1] < 0) this.vel[1] = 0;
+      }
+      if (this.pos[1] > maxY) {
+        this.pos[1] = maxY;
+        if (this.vel[1] > 0) this.vel[1] = 0;
+      }
+    }
     
-    // Constantly shoot fireballs
-    if (Math.abs(this.pos[0] - player.pos[0]) < 200) {
+    // Handle shooting with cooldown
+    if (this.shootTimer > 0) this.shootTimer -= dt;
+    if (Math.abs(this.pos[0] - player.pos[0]) < 200 && this.shootTimer <= 0) {
       this.shoot();
+      this.shootTimer = 0.2; // seconds between shots (~5/sec)
     }
     
     this.sprite.update(dt);
