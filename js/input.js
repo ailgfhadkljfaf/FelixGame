@@ -22,7 +22,7 @@
             key = 'RUN'; break;
         case 70:
             key = 'FIRE'; break;
-        case 71:
+        case 73:
             key = 'INVINCIBILITY'; break;
         default:
             key = String.fromCharCode(code);
