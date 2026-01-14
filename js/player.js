@@ -422,13 +422,14 @@
 				this.sprite.size = [0,0];
 				this.vel = [0,0];
 				window.setTimeout(function() {
+					fireballs.length = 0;
 					player.sprite.size = player.power===0 ? [16,16] : [16,32];
 					player.exiting = false;
 					player.noInput = false;
 					level.loader();
 					if (player.power !== 0) player.pos[1] -= 16;
 					music.overworld.currentTime = 0;
-				}, 5000);
+				}, 3000);
 			}
 		}
 
@@ -596,7 +597,8 @@
 		this.targetPos[0] = level.exit * 16;
 		this.left = true;
 		this.setAnimation();
-		this.waiting = 1;
+		this.waiting = 0;
 		this.exiting = true;
+		this.invincibility = 300; // 5 seconds of invincibility (300 frames at 60fps)
 	}
 })();
