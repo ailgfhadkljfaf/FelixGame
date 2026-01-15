@@ -35,6 +35,13 @@ var oneonetunnel = Mario.oneonetunnel = function() {
   player.pos[0] = level.playerPos[0];
   player.pos[1] = level.playerPos[1];
   vX = 0;
+  
+  // Reset coins and speed boost for this level
+  player.coins = 0;
+  player.speedBoostApplied = false;
+  
+  // Apply speed boost when entering the underworld
+  player.maxSpeed = player.maxSpeed * 3; // 200% speed increase
   level.putFloor(0,16);
   level.putWall(0,13,11);
   walls = [4,5,6,7,8,9,10];

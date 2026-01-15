@@ -7,6 +7,7 @@
 		//Maybe these can be consolidated some way? We'll see once they're all in.
 		this.power = 0;
 		this.coins = 0;
+		this.speedBoostApplied = false;
 		this.powering = [];
 		this.bounce = false;
 		this.jumping = 0;
