@@ -2,7 +2,7 @@ var oneonetunnel = Mario.oneonetunnel = function() {
   level = new Mario.Level({
     playerPos: [40,16],
     loader: Mario.oneonetunnel,
-    background: "#000000",
+    background: "#00001f",
     scrolling: false,
     coinSprite: function() {
       return new Mario.Sprite('sprites/items.png', [0,96],[16,16], 6,[0,0,0,0,1,2,1]);
