@@ -1,9 +1,11 @@
-var onetwo = Mario.onetwo = function() {
-  // Level 1-2
+var oneotwo = Mario.oneotwo = function() {
+  //The things that need to be passed in are basically just dependent on what
+  //tileset we're in, so it makes more sense to just make one variable for that, so
+  //TODO: put as much of this in the Level object definition as possible.
   level = new Mario.Level({
     playerPos: [56,192],
-    loader: function() {},
-    background: "#000000",
+    loader: Mario.onetwo,
+    background: "#000028",
     scrolling: true,
     invincibility: [144, 192, 240],
     exit: 204,
@@ -75,7 +77,44 @@ var onetwo = Mario.onetwo = function() {
     level.putFloor(loc[0],loc[1]);
   });
 
-  //build scenery - similar but slightly different
+  // After 10 seconds, remove only a few small random sections of the
+  // ground (rows 13 and 14) so the level loses only parts of the floor.
+  // Use a global timer handle so it can be cleared/reset when the player dies.
+  if (window.groundDropTimer) {
+    clearTimeout(window.groundDropTimer);
+    window.groundDropTimer = null;
+  }
+  window.groundDropTimer = setTimeout(function() {
+    if (!level) { window.groundDropTimer = null; return; }
+    var maxCol = level.exit || 300;
+    var holes = 8; // number of gaps to create
+    for (var h = 0; h < holes; h++) {
+      var start = Math.floor(Math.random() * Math.max(1, maxCol - 2));
+      var len = Math.floor(Math.random() * 10) + 1; // 1-10 tiles wide
+      for (var i = start; i < Math.min(maxCol, start + len); i++) {
+        if (level.statics[13]) delete level.statics[13][i];
+        if (level.statics[14]) delete level.statics[14][i];
+      }
+    }
+    window.groundDropTimer = null;
+  }, 10000);
+
+  // At 9.999 seconds, give all Goombas the ability to fly
+  if (window.groundFlyTimer) {
+    clearTimeout(window.groundFlyTimer);
+    window.groundFlyTimer = null;
+  }
+  window.groundFlyTimer = setTimeout(function() {
+    if (!level || !level.enemies) return;
+    level.enemies.forEach(function(e) {
+      if (e && typeof e.enableFly === 'function') {
+        try { e.enableFly(); } catch (ex) { /* ignore */ }
+      }
+    });
+    window.groundFlyTimer = null;
+  }, 9999);
+
+  //build scenery
   clouds = [[7,3],[19, 2],[56, 3],[67, 2],[87, 2],[103, 2],[152, 3],[163, 2],[200, 3]];
   clouds.forEach(function(cloud){
     level.putCloud(cloud[0],cloud[1]);
@@ -116,21 +155,75 @@ var onetwo = Mario.onetwo = function() {
     level.putThreeBush(bush, 12);
   });
 
-  //interactable terrain - modified for level 2
+  //interactable terrain
   level.putQBlock(16, 9, new Mario.Bcoin([256, 144]));
   level.putBrick(20, 9, null);
-  level.putQBlock(21, 9, new Mario.Fireflower([336, 144])); // Fire flower instead of mushroom
+  level.putQBlock(21, 9, new Mario.Mushroom([336, 144]));
   level.putBrick(22, 9, null);
   level.putQBlock(22, 5, new Mario.Bcoin([352, 80]));
   level.putQBlock(23, 9, new Mario.Bcoin([368, 144]));
   level.putBrick(24, 9, null);
+  level.putBrick(10, 7, null);
+  level.putBrick(16, 5, null);
+  level.putBrick(20, 4, null);
+  level.putBrick(20, 1, null);
+  level.putBrick(25, 7, null);
+  level.putBrick(25, 3, null);
+  level.putBrick(30, 9, null);
+  level.putBrick(32, 5, null);
+  level.putBrick(38, 1, null);
+  level.putBrick(35, 7, null);
+  level.putBrick(40, 5, null);
+  level.putBrick(43, 9, null);
+  level.putBrick(47, 3, null);
+  level.putBrick(50, 8, null);
+  level.putBrick(53, 7, null);
+  level.putBrick(55, 4, null);
+  level.putBrick(58, 9, null);
+  level.putBrick(60, 3, null);
+  level.putBrick(62, 8, null);
+  level.putBrick(65, 2, null);
+  level.putBrick(77, 10, null);
+  level.putBrick(72, 5, null);
+  level.putBrick(75, 8, null);
+  level.putBrick(80, 4, null);
+  level.putBrick(83, 8, null);
+  level.putBrick(85, 2, null);
+  level.putBrick(87, 9, null);
+  level.putBrick(91, 1, null);
+  level.putBrick(93, 6, null);
+  level.putBrick(96, 5, null);
+  level.putBrick(98, 10, null);
+  level.putBrick(102, 3, null);
+  level.putBrick(107, 7, null);
+  level.putBrick(111, 1, null);
+  level.putBrick(115, 6, null);
+  level.putBrick(119, 3, null);
+  level.putBrick(122, 8, null);
+  level.putBrick(127, 3, null);
+  level.putBrick(130, 1, null);
+  level.putBrick(133, 8, null);
+  level.putBrick(136, 4, null);
+  level.putBrick(139, 4, null);
+  level.putBrick(144, 8, null);
+  level.putBrick(151, 2, null);
+  level.putBrick(156, 9, null);
+  level.putBrick(159, 3, null);
+  level.putBrick(163, 7, null);
+  level.putBrick(167, 4, null);
+  level.putBrick(171, 8, null);
+  level.putBrick(175, 2, null);
+  level.putBrick(179, 7, null);
+  level.putBrick(183, 5, null);
   level.putPipe(28, 13, 2);
   level.putPipe(38, 13, 3);
   level.putPipe(46, 13, 4);
-  level.putRealPipe(57, 9, 4, "DOWN", Mario.onetwotunnel); // New tunnel for level 2
+  level.putPipe(60, 13, 8);
+  level.putPipe(5, 13, 5);
+  level.putRealPipe(57, 9, 4, "DOWN", Mario.oneotwotunnel);
   level.putBrick(77, 9, null);
-  level.putQBlock(78, 9, new Mario.Star([1248, 144])); // Star power
-  level.putBrick(79, 9, null);
+  level.putQBlock(78, 9, new Mario.Mushroom([1248, 144]));
+  level.putBrick(79, 9, null)
   level.putBrick(80, 5, null);
   level.putBrick(81, 5, null);
   level.putBrick(82, 5, null);
@@ -148,7 +241,7 @@ var onetwo = Mario.onetwo = function() {
   level.putBrick(101, 9, null);
   level.putQBlock(105, 9, new Mario.Bcoin([1680, 144]));
   level.putQBlock(108, 9, new Mario.Bcoin([1728, 144]));
-  level.putQBlock(108, 5, new Mario.Fireflower([1728, 80])); // Fire flower
+  level.putQBlock(108, 5, new Mario.Mushroom([1728, 80]));
   level.putQBlock(111, 9, new Mario.Bcoin([1776, 144]));
   level.putBrick(117, 9, null);
   level.putBrick(120, 5, null);
@@ -195,8 +288,8 @@ var onetwo = Mario.onetwo = function() {
   level.putWall(189, 13, 8);
   level.putFlagpole(198);
 
-  //and enemies - more challenging
-  level.putKoopa(10, 12);
+  //and enemies
+  level.putKoopa(10, 12); // Koopa on first screen
   level.putGoomba(22, 12);
   level.putGoomba(40, 12);
   level.putGoomba(50, 12);
@@ -214,11 +307,8 @@ var onetwo = Mario.onetwo = function() {
   level.putGoomba(170, 12);
   level.putGoomba(172, 12);
   level.putKoopa(35, 11);
-  level.putKoopa(45, 11); // Extra Koopa
-  level.putGoomba(55, 12);
-  level.putGoomba(56, 12);
-
-  // More flying Koopas
+  
+  // 10 Flying Koopas (Paratroopas) throughout level
   level.enemies.push(new Mario.Koopa([16*15, 16*8], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*30, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*55, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
@@ -229,10 +319,9 @@ var onetwo = Mario.onetwo = function() {
   level.enemies.push(new Mario.Koopa([16*150, 16*5], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*165, 16*8], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*185, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
-  level.enemies.push(new Mario.Koopa([16*25, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true)); // Extra
-  level.enemies.push(new Mario.Koopa([16*95, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true)); // Extra
 
   music.underground.pause();
-  music.overworld.currentTime = 0;
+  // music.overworld.currentTime = 0;
   music.overworld.play();
 };
+
