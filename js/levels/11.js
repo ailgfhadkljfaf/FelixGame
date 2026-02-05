@@ -317,7 +317,7 @@ var oneone = Mario.oneone = function() {
   level.enemies.push(new Mario.Koopa([16*110, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*130, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*150, 16*5], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
-  level.enemies.push(new Mario.Koopa([16*165, 16*8], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*170, 16*4], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*185, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
 
   music.underground.pause();
