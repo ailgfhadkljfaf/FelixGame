@@ -387,13 +387,25 @@
 				this.vel[1] = 1;
 			}
 			this.dying -= 1 * dt;
+
+			// When death animation finishes, stop ALL updates
 			if (this.dying <= 0) {
-				// Show death screen instead of immediately reloading
 				if (typeof showDeathScreen === 'function') {
 					showDeathScreen();
 				}
+
+				// Freeze the player completely
+				this.vel = [0,0];
+				this.acc = [0,0];
+
+				// Prevent ANY further update logic from running
+				return;
 			}
+
+			// While dying, do NOT run normal update logic
+			return;
 		}
+
 		else {
 			if (!this.flying) {
 				this.acc[1] = 0.25

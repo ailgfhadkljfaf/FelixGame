@@ -32,9 +32,18 @@
     if (player.pos[0] + 8 >= this.pos[0]) {
       music.overworld.pause();
       sounds.flagpole.play();
+
       setTimeout(function() {
         music.clear.play();
+
+        // After clear music finishes (~3.5 seconds), load level 2
+        setTimeout(function() {
+          Mario.oneotwo();
+          showLevelNotice("Level 2 Start!");
+        }, 3500);
+
       }, 2000);
+
       this.hit = true;
       player.flag();
       this.vel = [0, 2];
