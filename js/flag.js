@@ -45,3 +45,4 @@
     level.flagpoleSprites[2].render(ctx, this.pos[0]-8, this.pos[1], vX, vY);
   }
 })();
+
