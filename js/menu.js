@@ -140,26 +140,23 @@ function tryAgain() {
   gameStarted = true;
   playerDead = false;
   
-  // Reset the game: recreate player and reload level
-  if (typeof level !== 'undefined' && level.loader) {
+  if (typeof currentLevel === 'function') {
     // Reset updateables and fireballs
-    if (typeof updateables !== 'undefined') {
-      updateables = [];
-    }
-    if (typeof fireballs !== 'undefined') {
-      fireballs = [];
-    }
-    // Recreate player
-    if (typeof Mario !== 'undefined' && typeof Mario.Player !== 'undefined') {
-      player = new Mario.Player(level.playerPos);
-    }
+    updateables = [];
+    fireballs = [];
+
+    // Reset player
+    player = new Mario.Player([0,0]);
+
     // Reset input
     if (typeof input !== 'undefined') {
       input.reset();
     }
-    // Reload the level
-    level.loader.call();
+
+    // Load the correct level
+    currentLevel();
   }
+
 }
 
 function rageQuit() {

@@ -1,3 +1,4 @@
+currentLevel = Mario.oneone;
 var oneone = Mario.oneone = function() {
   //The things that need to be passed in are basically just dependent on what
   //tileset we're in, so it makes more sense to just make one variable for that, so
@@ -287,7 +288,6 @@ var oneone = Mario.oneone = function() {
   level.putWall(188, 13, 8);
   level.putWall(189, 13, 8);
   level.putFlagpole(198);
-
   //and enemies
   level.putKoopa(10, 12); // Koopa on first screen
   level.putGoomba(22, 12);

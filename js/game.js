@@ -1,3 +1,28 @@
+var currentLevel = Mario.oneone;
+function showLevelNotice(text) {
+  var notice = document.createElement("div");
+  notice.innerText = text;
+  notice.style.position = "absolute";
+  notice.style.top = "40%";
+  notice.style.left = "50%";
+  notice.style.transform = "translate(-50%, -50%)";
+  notice.style.padding = "20px 40px";
+  notice.style.background = "rgba(0,0,0,0.75)";
+  notice.style.color = "white";
+  notice.style.fontSize = "32px";
+  notice.style.fontFamily = "PressStart2P, monospace";
+  notice.style.borderRadius = "8px";
+  notice.style.opacity = "1";
+  notice.style.transition = "opacity 2s ease-out";
+  notice.style.zIndex = "9999";
+
+  document.body.appendChild(notice);
+
+  setTimeout(() => notice.style.opacity = "0", 2000);
+  setTimeout(() => notice.remove(), 4000);
+}
+
+
 var requestAnimFrame = (function(){
   return window.requestAnimationFrame       ||
     window.webkitRequestAnimationFrame ||

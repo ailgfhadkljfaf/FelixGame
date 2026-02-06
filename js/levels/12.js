@@ -1,11 +1,12 @@
+currentLevel = Mario.oneotwo;
 var oneotwo = Mario.oneotwo = function() {
   //The things that need to be passed in are basically just dependent on what
   //tileset we're in, so it makes more sense to just make one variable for that, so
   //TODO: put as much of this in the Level object definition as possible.
   level = new Mario.Level({
     playerPos: [56,192],
-    loader: Mario.onetwo,
-    background: "#008",
+    loader: Mario.oneotwo,
+    background: "#49f",
     scrolling: true,
     invincibility: [144, 192, 240],
     exit: 204,
@@ -164,57 +165,26 @@ var oneotwo = Mario.oneotwo = function() {
   level.putQBlock(23, 9, new Mario.Bcoin([368, 144]));
   level.putBrick(24, 9, null);
   level.putBrick(10, 7, null);
-  level.putBrick(16, 5, null);
   level.putBrick(20, 4, null);
-  level.putBrick(20, 1, null);
-  level.putBrick(25, 7, null);
   level.putBrick(25, 3, null);
-  level.putBrick(30, 9, null);
-  level.putBrick(32, 5, null);
   level.putBrick(38, 1, null);
-  level.putBrick(35, 7, null);
-  level.putBrick(40, 5, null);
   level.putBrick(43, 9, null);
-  level.putBrick(47, 3, null);
   level.putBrick(50, 8, null);
-  level.putBrick(53, 7, null);
   level.putBrick(55, 4, null);
   level.putBrick(58, 9, null);
   level.putBrick(60, 3, null);
-  level.putBrick(62, 8, null);
-  level.putBrick(65, 2, null);
   level.putBrick(77, 10, null);
-  level.putBrick(72, 5, null);
-  level.putBrick(75, 8, null);
-  level.putBrick(80, 4, null);
-  level.putBrick(83, 8, null);
   level.putBrick(85, 2, null);
-  level.putBrick(87, 9, null);
   level.putBrick(91, 1, null);
-  level.putBrick(93, 6, null);
   level.putBrick(96, 5, null);
-  level.putBrick(98, 10, null);
-  level.putBrick(102, 3, null);
   level.putBrick(107, 7, null);
-  level.putBrick(111, 1, null);
   level.putBrick(115, 6, null);
-  level.putBrick(119, 3, null);
   level.putBrick(122, 8, null);
-  level.putBrick(127, 3, null);
   level.putBrick(130, 1, null);
-  level.putBrick(133, 8, null);
   level.putBrick(136, 4, null);
-  level.putBrick(139, 4, null);
-  level.putBrick(144, 8, null);
   level.putBrick(151, 2, null);
   level.putBrick(156, 9, null);
-  level.putBrick(159, 3, null);
-  level.putBrick(163, 7, null);
   level.putBrick(167, 4, null);
-  level.putBrick(171, 8, null);
-  level.putBrick(175, 2, null);
-  level.putBrick(179, 7, null);
-  level.putBrick(183, 5, null);
   level.putPipe(28, 13, 2);
   level.putPipe(38, 13, 3);
   level.putPipe(46, 13, 4);
@@ -277,20 +247,22 @@ var oneotwo = Mario.oneotwo = function() {
   level.putQBlock(170, 9, new Mario.Bcoin([2720, 144]));
   level.putBrick(171, 9, null);
   level.putPipe(179, 13, 2);
-  level.putWall(181, 13, 1);
-  level.putWall(182, 13, 2);
-  level.putWall(183, 13, 3);
-  level.putWall(184, 13, 4);
-  level.putWall(185, 13, 5);
-  level.putWall(186, 13, 6);
-  level.putWall(187, 13, 7);
-  level.putWall(188, 13, 8);
-  level.putWall(189, 13, 8);
+  // level.putWall(181, 13, 1);
+  // level.putWall(182, 13, 2);
+  // level.putWall(183, 13, 3);
+  // level.putWall(184, 13, 4);
+  // level.putWall(185, 13, 5);
+  // level.putWall(186, 13, 6);
+  // level.putWall(187, 13, 7);
+  // level.putWall(188, 13, 8);
+  // level.putWall(189, 13, 8);
   level.putFlagpole(198);
 
   //and enemies
   level.putKoopa(10, 12); // Koopa on first screen
   level.putGoomba(22, 12);
+  level.putGoomba(23, 12);
+  level.putGoomba(24, 12);
   level.putGoomba(40, 12);
   level.putGoomba(50, 12);
   level.putGoomba(51, 12);
@@ -302,6 +274,7 @@ var oneotwo = Mario.oneotwo = function() {
   level.putGoomba(115, 12);
   level.putGoomba(122, 12);
   level.putGoomba(123, 12);
+  level.putGoomba(124, 12);
   level.putGoomba(125, 12);
   level.putGoomba(126, 12);
   level.putGoomba(170, 12);
@@ -319,6 +292,20 @@ var oneotwo = Mario.oneotwo = function() {
   level.enemies.push(new Mario.Koopa([16*150, 16*5], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*165, 16*8], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
   level.enemies.push(new Mario.Koopa([16*185, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*45, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*80, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*100, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*120, 16*5], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*140, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*5], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*160, 16*6], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*7], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*155, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));
+  level.enemies.push(new Mario.Koopa([16*180, 16*9], new Mario.Sprite('sprites/enemy.png', [128,0], [16,32], 2, [0,1]), true));// This will be the boss of level 2
 
   music.underground.pause();
   // music.overworld.currentTime = 0;

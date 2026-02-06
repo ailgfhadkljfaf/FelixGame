@@ -1,7 +1,7 @@
-var onetwotunnel = Mario.onetwotunnel = function() {
+var onetwotunnel = Mario.oneotwotunnel = function() {
   level = new Mario.Level({
     playerPos: [40,16],
-    loader: Mario.onetwotunnel,
+    loader: Mario.oneotwotunnel,
     background: "#000000",
     scrolling: false,
     coinSprite: function() {
@@ -60,7 +60,16 @@ var onetwotunnel = Mario.onetwotunnel = function() {
   });
 
   level.putRealPipe(13,11,3,"RIGHT", function() {
-    Mario.onetwo.call();
+    Mario.oneotwotunnel.call();
+    // Reset player state after warp
+    player.dying = 0;
+    player.exiting = false;
+    player.piping = false;
+    player.noInput = false;
+    player.waiting = 0;
+    player.vel = [0,0];
+    player.acc = [0,0];
+
     player.pos = [2616, 177]
     player.pipe("UP", function() {;});
   });
